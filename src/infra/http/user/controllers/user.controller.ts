@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -11,6 +12,7 @@ import {
 import { CreateUserDTO } from 'src/app/user/dtos/create-user-dto';
 import { UpdateUserDTO } from 'src/app/user/dtos/update-user-dto';
 import { CreateUser } from 'src/app/user/use-cases/create-user';
+import { DeleteUser } from 'src/app/user/use-cases/delete-user';
 import { ReadUser } from 'src/app/user/use-cases/read-user';
 import { UpdateUser } from 'src/app/user/use-cases/update-user';
 import { UserViewModel } from '../view-models/user-view-model';
@@ -21,6 +23,7 @@ export class UserController {
     private readonly createUser: CreateUser,
     private readonly readUser: ReadUser,
     private readonly updateUser: UpdateUser,
+    private readonly deleteUser: DeleteUser,
   ) {}
 
   @Post()
@@ -39,5 +42,11 @@ export class UserController {
   @HttpCode(HttpStatus.NO_CONTENT)
   async update(@Param('id') id: string, @Body() updateUser: UpdateUserDTO) {
     await this.updateUser.execute(id, updateUser);
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async delete(@Param('id') id: string) {
+    await this.deleteUser.execute(id);
   }
 }
