@@ -18,3 +18,12 @@ model User {
 
   @@map("users")
 }
+
+model Product {
+  id     String @id
+  name   String
+  amount Int
+  price  Float
+
+  @@map("products")
+}
