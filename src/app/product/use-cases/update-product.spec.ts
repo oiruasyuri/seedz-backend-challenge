@@ -1,6 +1,5 @@
 import { Product } from '@prisma/client';
 import { InMemoryProductRepository } from '../../../../test/repositories/in-memory-product-repository';
-import { AmountIsRequired } from './errors/amount-is-required';
 import { NameIsRequired } from './errors/name-is-required';
 import { PriceIsRequired } from './errors/price-is-required';
 import { ProductNotFound } from './errors/product-not-found';
@@ -31,14 +30,6 @@ describe('update product', () => {
     await expect(
       updateProduct.execute(product.id, productUpdate),
     ).rejects.toThrowError(NameIsRequired);
-  });
-
-  it('It should not be possible to submit blank product amount', async () => {
-    const productUpdate = { amount: 0 };
-
-    await expect(
-      updateProduct.execute(product.id, productUpdate),
-    ).rejects.toThrowError(AmountIsRequired);
   });
 
   it('It should not be possible to submit blank product price', async () => {

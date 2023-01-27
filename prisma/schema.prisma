@@ -16,6 +16,8 @@ model User {
   email    String @unique
   password String
 
+  sales Sale[]
+
   @@map("users")
 }
 
@@ -25,5 +27,20 @@ model Product {
   amount Int
   price  Float
 
+  sales Sale[]
+
   @@map("products")
+}
+
+model Sale {
+  id             String @id
+  user_id        String
+  product_id     String
+  product_amount Int
+  total_price    Float
+
+  user    User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@map("sales")
 }
