@@ -1,12 +1,11 @@
 import { User } from '@prisma/client';
-import { CreateUserDTO } from 'src/app/user/dtos/create-user-dto';
 import { UpdateUserDTO } from 'src/app/user/dtos/update-user-dto';
 import { UserRepository } from 'src/app/user/repositories/user-repository';
 
 export class InMemoryUserRepository implements UserRepository {
   public users: User[] = [];
 
-  async create(createUser: CreateUserDTO): Promise<void> {
+  async create(createUser: User): Promise<void> {
     this.users.push(createUser);
   }
 
